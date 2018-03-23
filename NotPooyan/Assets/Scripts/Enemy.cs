@@ -15,6 +15,8 @@ public class Enemy : MonoBehaviour {
 
 	Controller pl;
 
+	float fallSpeed;
+
 	void Start() {
 		obj = this.GetComponent<SpriteRenderer> ();
 		life = health[Random.Range (0, 3)];
@@ -22,18 +24,29 @@ public class Enemy : MonoBehaviour {
 	}
 
 	void Update() {
+
+		transform.Translate (new Vector3(0, -fallSpeed, 0) * Time.deltaTime);
+
+		if (transform.position.y < -1) { 
+			pl.life -= 1;
+			Destroy (this.gameObject);
+		}
+
 		if (life <= 0) {
 			Destroy (this.gameObject);
 			pl.score += 1;
 		}
 		if (life == 10) {
 			obj.sprite = easy;
+			fallSpeed = 3f;
 		}
 		if (life == 20) {
 			obj.sprite = normal;
+			fallSpeed = 2f;
 		}
 		if (life == 30) {
 			obj.sprite = hard;
+			fallSpeed = 1f;
 		}
 	}
 	void OnTriggerEnter2D(Collider2D other) {
@@ -41,12 +54,6 @@ public class Enemy : MonoBehaviour {
 		{
 			life -= 10;
 			Destroy (other.gameObject);
-		}
-		else
-		if (other.gameObject.tag == "Underground") 
-		{
-			pl.life -= 1;
-			Destroy (this.gameObject);
 		}
 	}
 }

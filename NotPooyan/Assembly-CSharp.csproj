@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\Controller.cs" />
      <Compile Include="Assets\Scripts\Enemy.cs" />
      <Compile Include="Assets\Scripts\EnemySpawner.cs" />
+     <Compile Include="Assets\Scripts\Menu.cs" />
      <Compile Include="Assets\Scripts\Touch.cs" />
      <Compile Include="Assets\Scripts\Weapon.cs" />
  <Reference Include="UnityEngine.UI">
