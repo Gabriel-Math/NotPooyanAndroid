@@ -8,5 +8,9 @@ public class EnemyObject : MonoBehaviour {
 
 	void Update () {
 		transform.Translate (new Vector3(0, -fallSpeed, 0) * Time.deltaTime);
+
+		if (transform.position.y < -3f) { 
+			Destroy (this.gameObject);
+		}
 	}
 }
