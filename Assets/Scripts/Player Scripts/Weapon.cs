@@ -20,39 +20,40 @@ public class Weapon : MonoBehaviour {
 
 	void Update() {
 
-		#region Mobile Controls
-		if (Input.touchCount > 0) {
-			count += Time.deltaTime;
-
-			#region Auto-fire
-			if (Input.GetTouch (0).phase == TouchPhase.Stationary && count >= 0.5f) {
-				isShooting = true;
-				if (fireRateAuto == 0) {
-					Shoot ();
-				} else {
-					if (Time.time > timeToFire) {
-						timeToFire = Time.time + 1 / fireRateAuto;
-						Shoot ();
-					}
-				}
-				isShooting = false;
-			}
-			#endregion
-
-			#region Semi-auto
-			if(Input.GetTouch(0).phase == TouchPhase.Ended && count <= 0.3f) {
-				isShooting = true;
-				if (Time.time > timeToFire) {
-					timeToFire = Time.time + 1 / fireRateSemi;
-					Shoot ();
-				}
-			}
-			isShooting = false;
-			#endregion
-		} else
-			count = 0;
-		#endregion
-	}
+        #region Mobile Controls
+        if (Input.touchCount > 0)
+        {
+            if (isShooting)
+            {
+                count += Time.deltaTime;
+                Touch touch = Input.GetTouch(0);
+                #region Semi-auto
+                if (touch.phase == TouchPhase.Ended && count <= 0.3f)
+                {
+                    if (Time.time > timeToFire)
+                    {
+                        timeToFire = Time.time + 1 / fireRateSemi;
+                        Shoot();
+                    }
+                    return;
+                }
+				#endregion
+            }
+            else
+            {
+                if (Input.GetTouch(0).phase == TouchPhase.Began)
+                {
+                    isShooting = true;
+                }
+            }
+        }
+        else
+        {
+            count = 0;
+            isShooting = false;
+        }
+        #endregion
+    }
 
 	void Shoot (){
 		

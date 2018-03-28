@@ -9,7 +9,13 @@ public class Menu : MonoBehaviour {
 	public GameObject menu;
 	Controller pl;
 
+	public Text highScoreText;
+
 	void Start() {
+
+		if(highScoreText != null)
+			highScoreText.text = "Highscore: " + PlayerPrefs.GetFloat ("Highscore").ToString();
+
 		if (GameObject.FindGameObjectWithTag ("Player") != null) {
 			pl = GameObject.FindGameObjectWithTag ("Player").GetComponent<Controller> ();
 		}

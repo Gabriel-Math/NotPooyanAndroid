@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class Controller : MonoBehaviour {
 
 	public float movementSpeed;
-	Weapon weapon;
 
 	public bool gameOver;
 
@@ -21,13 +20,12 @@ public class Controller : MonoBehaviour {
 
 	void Start() {
 		gameOver = false;
-		weapon = GetComponentInChildren<Weapon> ();
 		Time.timeScale = 1f;
 	}
 
 	void Update() {
 		if (gameOver == false) {
-			if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Moved && weapon.isShooting == false) {
+			if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Moved) {
 				RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint ((Input.GetTouch (0).position)), Vector2.zero);
 				if (hit.collider.tag == "Player") {
 					Vector2 touchPosition = Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position);
@@ -52,8 +50,13 @@ public class Controller : MonoBehaviour {
 		} else {
 			if (life == 0) {
 				scorePoints.text = "Game Over: " + score.ToString ();
+
 				Time.timeScale = 0;
 				gameOver = true;
+
+				if(PlayerPrefs.GetInt("Highscore") < score)
+					PlayerPrefs.SetInt("Highscore", score);
+				
 			}
 		}
 	}
