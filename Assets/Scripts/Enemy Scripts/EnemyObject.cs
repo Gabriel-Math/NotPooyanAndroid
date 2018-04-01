@@ -9,6 +9,7 @@ public class EnemyObject : MonoBehaviour {
 	public GameObject ballon_skin;
 	public GameObject enemy_skin;
 
+	public int health;
 
 	void Update () {
 		transform.Translate (new Vector3(0, -fallSpeed, 0) * Time.deltaTime);
@@ -18,7 +19,9 @@ public class EnemyObject : MonoBehaviour {
 		}
 			
 		if (ballon_skin == null) {
-			enemy_skin.gameObject.AddComponent<Rigidbody2D> ();
+			if(enemy_skin.gameObject.GetComponent<Rigidbody2D>() == null)
+				enemy_skin.gameObject.AddComponent<Rigidbody2D> ();
+			
 			enemy_skin.GetComponent<Rigidbody2D> ().AddForce(new Vector2(Random.Range(-3f,3f), Random.Range(-10f,0f)));;
 		}
 	}

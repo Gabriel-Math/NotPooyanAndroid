@@ -8,6 +8,7 @@ TagManager:
   - Projectile
   - Underground
   - Grass
+  - GM
   layers:
   - Default
   - TransparentFX

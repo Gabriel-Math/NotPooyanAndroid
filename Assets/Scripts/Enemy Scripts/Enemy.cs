@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour {
 
-	public int health;
+	int health;
 
 	SpriteRenderer obj;
 	public Sprite easy;
@@ -14,11 +14,14 @@ public class Enemy : MonoBehaviour {
 
 	Controller pl;
 	EnemyObject en;
+	Score_count sc;
 
 	void Start() {
+		sc = GameObject.FindGameObjectWithTag ("GM").GetComponent<Score_count> ();
 		en = gameObject.GetComponentInParent<EnemyObject> ();
-		obj = this.GetComponent<SpriteRenderer> ();
+		obj = GetComponent<SpriteRenderer> ();
 		pl = GameObject.FindGameObjectWithTag ("Player").GetComponent<Controller> ();
+		health = en.health;
 	}
 
 	void Update() {
@@ -30,7 +33,7 @@ public class Enemy : MonoBehaviour {
 
 		if (health <= 0) {
 			Destroy (this.gameObject);
-			pl.score += 1;
+			sc.score += 1;
 		}
 		if (health == 10) {
 			obj.sprite = easy;

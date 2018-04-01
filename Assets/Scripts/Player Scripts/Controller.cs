@@ -1,30 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Controller : MonoBehaviour {
 
 	public float movementSpeed;
-
 	public bool gameOver;
-
-	public int score = 0;
 	public int life = 5;
 
-	public Text scorePoints;
 	double halfScreenTopDown;
 
 	public float maxHeight;
 	public float minHeight;
 
+	Score_count sc;
+
 	void Start() {
+		sc = GameObject.FindGameObjectWithTag ("GM").GetComponent<Score_count> ();
 		gameOver = false;
 		Time.timeScale = 1f;
 	}
 
 	void Update() {
-		if (gameOver == false) {
+		if (gameOver == false || PauseMenu.GameIsPaused == false) {
 			if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Moved) {
 				RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint ((Input.GetTouch (0).position)), Vector2.zero);
 				if (hit.collider.tag == "Player") {
@@ -44,21 +42,24 @@ public class Controller : MonoBehaviour {
 		if (life > 5) {
 			life = 5;
 		}
+			
+		if (life == 0) {
+			SaveScore ();
+			gameOver = true;
+		}
+	}
 
-		if (life != 0) {
-			scorePoints.text = score.ToString ();
-		} else {
-			if (life == 0) {
-				scorePoints.text = "Game Over: " + score.ToString ();
+	void SaveScore() {
+		PlayerPrefs.SetInt ("Score", sc.score);
 
-				Time.timeScale = 0;
-				gameOver = true;
-
-				if(PlayerPrefs.GetInt("Highscore") < score)
-					PlayerPrefs.SetInt("Highscore", score);
-				
+		if (PlayerPrefs.HasKey ("Highscore")) {
+			if (PlayerPrefs.GetInt ("Highscore") < sc.score) {
+				PlayerPrefs.SetInt ("Highscore", sc.score);
 			}
+		} else {
+			PlayerPrefs.SetInt ("Highscore", sc.score);
 		}
 	}
 }
+	
 

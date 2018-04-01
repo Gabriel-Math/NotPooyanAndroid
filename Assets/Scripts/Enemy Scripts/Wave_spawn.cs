@@ -6,18 +6,18 @@ public class Wave_spawn : MonoBehaviour {
 
 	public enum SpawnState { SPAWNING, WAITING, COUNTING };
 
-    //[System.Serializable]
-    //public class Enemy
-    //{
-    //    public Transform enemyPrefab;
-    //    [Range(0,100)]
-    //    public float probability = 50;
-    //}
+    [System.Serializable]
+    public class Enemy
+    {
+        public Transform enemyPrefab;
+        [Range(0,100)]
+        public float probability = 0;
+    }
 
 	[System.Serializable]
 	public class Wave {
 		public string name;
-		public Transform[] enemies;
+		public Enemy[] enemies;
 		public int count;
 		public float rate;
 	}
@@ -86,16 +86,15 @@ public class Wave_spawn : MonoBehaviour {
 		state = SpawnState.SPAWNING;
 
 		for (int i = 0; i < _wave.count; i++) {
+			
+
+			int ran = Random.Range(0, 100);
+
+			//Probabilidade
+
 			int e = Random.Range(0, _wave.enemies.Length);
 
-            //float sorteioMax = 0;
-            //foreach (var enemy in _wave.enemies)
-            //{
-            //    sorteioMax += enemy.probability;
-            //}
-            //int sorteio = Random.Range(0, (int)sorteioMax);
-
-            SpawnEnemy (_wave.enemies[e]);
+			SpawnEnemy (_wave.enemies[e].enemyPrefab);
 			yield return new WaitForSeconds (1f / _wave.rate);
 		}
 
