@@ -38,7 +38,9 @@ public class Controller : MonoBehaviour {
 				}
 			}
 		}
-		life = 5;
+
+		if (life > 5)
+			life = 5;
 			
 		if (life == 0) {
 			SaveScore ();

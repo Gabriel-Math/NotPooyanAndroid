@@ -25,6 +25,7 @@ public class Wave_spawn : MonoBehaviour {
 	public Wave[] waves;
 	private int nextWave = 0;
 	float value;
+	int enemyChosen;
 
 	public Transform[] spawnPoints;
 
@@ -92,16 +93,16 @@ public class Wave_spawn : MonoBehaviour {
 		for (int i = 0; i < _wave.count; i++) {
 			int ran = Random.Range(0, 100);
 
-			for(i = 0; i < _wave.enemies.Length; i++) {
-				value += _wave.enemies[i].probability;
+			value = 0;
+			for(int j = 0; j < _wave.enemies.Length; j++) {
+				value += _wave.enemies[j].probability;
 				if (ran < value) {
-					yield return i;
+					enemyChosen = j;
 					break;
 				}
 			}
-			value = 0;
 
-			SpawnEnemy (_wave.enemies[i].enemyPrefab);
+			SpawnEnemy (_wave.enemies[enemyChosen].enemyPrefab);
 			yield return new WaitForSeconds (1f / _wave.rate);
 		}
 

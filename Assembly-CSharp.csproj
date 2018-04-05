@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{70CD761D-B27E-E2A0-BCEC-3BFBC0D2BDD4}</ProjectGuid>
+    <ProjectGuid>{2566E662-BD1B-B2AE-16AB-6C835DEE5424}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -51,7 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\EndMenu.cs" />
+     <Compile Include="Assets\Scripts\EndMenu.cs" />
      <Compile Include="Assets\Scripts\Enemy Scripts\Enemy.cs" />
      <Compile Include="Assets\Scripts\Enemy Scripts\EnemyObject.cs" />
      <Compile Include="Assets\Scripts\Enemy Scripts\Wave_spawn.cs" />

@@ -9,11 +9,11 @@ public class PauseMenu : MonoBehaviour {
 
 	public GameObject pauseMenuUI;
 
-	void PauseGame() {
-		if (GameIsPaused) {
-			Resume ();
-		} else {
-			Pause ();
+	void Update() {
+		if (Input.GetKey (KeyCode.Escape)) {
+			if (!GameIsPaused) {
+				Pause ();
+			}
 		}
 	}
 
@@ -30,6 +30,7 @@ public class PauseMenu : MonoBehaviour {
 	}
 
 	public void Menu() {
+		GameIsPaused = false;
 		SceneManager.LoadScene ("Menu");
 	}
 
